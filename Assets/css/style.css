@@ -1,0 +1,42 @@
+body {
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.header {
+	text-align:center;
+	color:white;
+	font-size:5em;
+}
+
+.names {
+	text-align:center;
+    background: red;
+	position: relative;
+    top: -60px;
+    color:black;
+    width:200px;
+    height:200px;
+    display:inline;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: -20px;
+    right: 55px;
+    color:white;
+    font-size:24px;
+    background-color:black;
+}
+
+.top-left {
+	position: absolute;
+    bottom: 100px;
+    right: 80px;
+    color:red;
+    font-size:24px;
+    background-color:black;
+
+}
+
