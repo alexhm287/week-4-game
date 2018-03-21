@@ -12,8 +12,7 @@ body {
 
 .names {
 	text-align:center;
-    background: red;
-	position: relative;
+    position: relative;
     top: -60px;
     color:black;
     width:200px;
@@ -27,7 +26,16 @@ body {
     right: 55px;
     color:white;
     font-size:24px;
-    background-color:black;
+    background-color:transparent;
+}
+
+.hp {
+    position: absolute;
+    bottom: 180px;
+    right: 105px;
+    color:white;
+    font-size:24px;
+    background-color:transparent;
 }
 
 .top-left {
@@ -38,5 +46,27 @@ body {
     font-size:24px;
     background-color:black;
 
+}
+
+.title {
+    margin:60px;
+    font-size:30px;
+    color:white;
+}
+
+.section {
+    height:140px;
+}
+
+.char-attacker {
+    border-color: white;
+}
+
+.char-img {
+    width:200px;
+    height:200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
 }
 
