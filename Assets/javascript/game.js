@@ -49,6 +49,12 @@ function clearRoles(){
 	setRole(darth, "");
 	setRole(solo, "");
 	setRole(yoda, "");
+	bobafett.currentHp = bobafett.startingHp;
+	darth.currentHp = darth.startingHp;
+	solo.currentHp = solo.startingHp;
+	yoda.currentHp = yoda.startingHp;
+
+
 }
 
 function setRole(player,role) {
@@ -66,18 +72,25 @@ function findPlayerByRole(role) {
 
 }
 
+function restartGame() {
+	alert("restart");
+}
+
 function drawPlayers() {
 	for (var pl in players) {
 		var player = players[pl];
 		var playerNode = $("#" + pl);
 		var hpNode = $(".hp", playerNode);
 		hpNode.html(player.currentHp);
+		playerNode.show();
+		
 		if(player.role === "attacker") {
 			$("img", playerNode).css("background", "white");
 			$("#attacker").append(playerNode);
 			
 		}
 		else if(player.role === "") { 
+			$("img", playerNode).css("background", "white");
 			$("#start").append(playerNode);
 		}
 		else if(player.role === "middle") {
@@ -103,8 +116,6 @@ function startGame() {
 	clearRoles();
 	drawPlayers();
 	$("#attack").hide();
-
-	
 
 	var clickFunction = function(e) {
 		var id = e.currentTarget.id;
@@ -139,8 +150,14 @@ function startGame() {
 		var nd = $("#" + pl);
 		nd.click(clickFunction);
 	}
+	$("#restart").click(startGame);
+
+
 
 	$("#attack").click(function(){
+		 if(gameState.status !== "play") {
+		 	return;
+		 }
 		//alert("lightsaber attack");
 		var attacker = findPlayerByRole("attacker");
 		var defender = findPlayerByRole("defender");
@@ -148,14 +165,41 @@ function startGame() {
 		var attackerAttackPower = attacker.attackPower;
 		defender.currentHp -= attackerAttackPower;
 		attacker.currentHp -= defenderAttackPower;
+		var defenderDamage = "You attacked " + defender.name + " for " + attackerAttackPower  + " damage.";
+		var attackDamage = defender.name + " attacked you for " + defenderAttackPower  + " damage.";
+		$("#status").html(defenderDamage + "<p>" + attackDamage);
 
-		var strength = Math.floor((Math.random() * 10) + 10);
+
+		var strength = Math.floor((Math.random() *10) +10);
 		attacker.attackPower += strength; 
 
-		if (defender.currentHp < 0) {
-			defender.role = "lost";
-			$("#status").html("You defeated " + defender.name + ". You can now choose another enemy to fight.");
+		if (attacker.currentHp < 0) {	
+			$("#status").html("You lost Game Over!");
+			gameState.status = "lost";
+			drawPlayers();
+			return;
 		}
+
+		if (defender.currentHp < 0) {
+			defender.role = "lost";	
+			$("#status").html("You defeated " + defender.name + ". You can now choose another enemy to fight.");
+
+		}
+
+		var winner = true; 
+		for (var pl in players) {
+			var p = players[pl];
+			if (p.role !== "attacker" && p.role !== "lost") {
+				winner = false; 
+			}
+		}
+
+		if (winner) {
+			$("#status").html("You Won Game <b>Over!</b>"); 
+		}
+
+
+		if (defender.currentHp  )
 		drawPlayers();
 
 
